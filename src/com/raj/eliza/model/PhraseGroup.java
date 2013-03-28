@@ -4,13 +4,13 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 import com.google.appengine.api.datastore.Key;
@@ -29,7 +29,8 @@ public class PhraseGroup {
 	
 	protected String description;
 	
-	@OneToMany(mappedBy = "phraseGroup", cascade = CascadeType.ALL)
+	@Basic
+	@OneToMany(mappedBy = "phraseGroup", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 //	@JoinColumn(name = "PHRASE_GROUP_ID", referencedColumnName="ID")
 	private Collection<Phrase> phrases;
 	

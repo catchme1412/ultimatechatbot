@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import com.raj.eliza.model.Phrase;
@@ -12,8 +13,11 @@ public class PhraseDAO {
 
     public static void create(Phrase entry) {
         EntityManager em = EMFService.get().createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
         try {
             em.persist(entry);
+            em.detach(entry);
+			transaction.commit();
         } finally {
             em.close();
         }

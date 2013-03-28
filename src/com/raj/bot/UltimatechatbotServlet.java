@@ -22,6 +22,8 @@ public class UltimatechatbotServlet extends HttpServlet {
         resp.setContentType("text/plain");
         if ("y".equals(req.getParameter("ajax"))) {
             resp.getWriter().println("AJAX");
+            List<Comment> comments = CommentDAO.getLatestEntries(0, 100);
+            System.out.println(">>>>>>>>"+comments.get(0).getPhraseGroup());
             System.out.println(getAnswer("FF"));
             return;
         } else {
@@ -29,6 +31,7 @@ public class UltimatechatbotServlet extends HttpServlet {
                 InputStreamReader stream = new InputStreamReader(ClassLoader.getSystemResourceAsStream("eliza.dat"));
                 DataLoaderUtil t = new DataLoaderUtil(stream);
                 for (Comment c : t.getComments()) {
+                	System.out.println(c.getPhraseGroup());
                     CommentDAO.create(c);
                 }
                 for (AuxiliaryVerb v : t.getAuxVerbs()) {
@@ -37,6 +40,8 @@ public class UltimatechatbotServlet extends HttpServlet {
             }
             List<AuxiliaryVerb> a = AuxiliaryVerbDAO.getLatestEntries(0, 2);
             System.out.println(a);
+            List<Comment> b = CommentDAO.getLatestEntries(0, 2);
+            System.out.println(b);
         }
     }
 
@@ -54,9 +59,7 @@ public class UltimatechatbotServlet extends HttpServlet {
                     return cleanOutput(Transformer.tranform(comment.getAnswerGroup().getAnswers().iterator().next()
                             .getAnswerText(), "*", inputPhrase));
                 }
-                ;
             }
-            ;
         }
         return "";
     }

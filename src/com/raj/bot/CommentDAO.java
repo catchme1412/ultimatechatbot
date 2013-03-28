@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import com.raj.eliza.model.Comment;
@@ -12,8 +13,12 @@ public class CommentDAO {
 
 	public static void create(Comment entry) {
 		EntityManager em = EMFService.get().createEntityManager();
+		EntityTransaction transaction = em.getTransaction();
 		try {
+			transaction.begin();
 			em.persist(entry);
+			em.detach(entry);
+			transaction.commit();
 		} finally {
 			em.close();
 		}
@@ -23,6 +28,7 @@ public class CommentDAO {
 		EntityManager em = EMFService.get().createEntityManager();
 		try {
 			em.remove(entry);
+			em.detach(entry);
 		} finally {
 			em.close();
 		}
@@ -32,6 +38,7 @@ public class CommentDAO {
 		EntityManager em = EMFService.get().createEntityManager();
 		try {
 			em.merge(entry);
+			em.detach(entry);
 		} finally {
 			em.close();
 		}

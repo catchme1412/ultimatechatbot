@@ -13,7 +13,9 @@ public class AuxiliaryVerbDAO {
 	public static void create(AuxiliaryVerb entry) {
 		EntityManager em = EMFService.get().createEntityManager();
 		try {
+			
 			em.persist(entry);
+			em.detach(entry);
 		} finally {
 			em.close();
 		}

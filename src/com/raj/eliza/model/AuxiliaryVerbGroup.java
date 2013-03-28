@@ -3,8 +3,8 @@ package com.raj.eliza.model;
 import java.util.Collection;
 import java.util.HashSet;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,6 +30,7 @@ public class AuxiliaryVerbGroup {
 	
 	protected String description;
 	
+	@Basic
 	@OneToMany(mappedBy = "auxiliaryVerbGroup", cascade = CascadeType.ALL)
 	private Collection <AuxiliaryVerb> auxiliaryVerbs;
 	

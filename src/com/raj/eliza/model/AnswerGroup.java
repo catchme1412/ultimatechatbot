@@ -2,14 +2,13 @@ package com.raj.eliza.model;
 
 import java.util.Collection;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 import com.google.appengine.api.datastore.Key;
@@ -27,7 +26,8 @@ public class AnswerGroup  {
 	
 	
 //	@OneToMany (fetch=FetchType.EAGER, cascade = CascadeType.ALL)
-	@OneToMany(mappedBy = "answerGroup", cascade = CascadeType.ALL)
+	@Basic
+	@OneToMany(mappedBy = "answerGroup", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 //    @JoinColumn(name = "answerGroupId", referencedColumnName="ID")
 	private Collection<Answer> answers;
 

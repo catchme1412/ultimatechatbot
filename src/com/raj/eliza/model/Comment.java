@@ -2,6 +2,7 @@ package com.raj.eliza.model;
 
 import java.util.HashSet;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,12 +23,12 @@ public class Comment {
 	 @GeneratedValue(strategy = GenerationType.IDENTITY)
 	 private Key id;
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	// @JoinColumn(name = "PHRASE_GROUP_ID", referencedColumnName = "ID")
 	// @JoinTable(name = "PHRASE_GROUP", joinColumns = @JoinColumn(name = "ID"))
 	private PhraseGroup phraseGroup;
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	// @JoinColumn(name = "ANSWER_GROUP_ID", referencedColumnName = "ID")
 	// @JoinTable(name = "ANSWER_GROUP", joinColumns = @JoinColumn(name = "ID"))
 	private AnswerGroup answerGroup;
@@ -50,7 +51,7 @@ public class Comment {
 
 	@Override
 	public String toString() {
-		return "Comment [id=" + 0 + ", Phrase=" + getPhraseGroup().getPhrases().iterator().next().getPhraseText()
+		return "Comment [id=" + id + ", Phrase=" + getPhraseGroup().getPhrases().iterator().next().getPhraseText()
 				+ ", Answer=" + getAnswerGroup().getAnswers().iterator().next().getAnswerText() + "]";
 	}
 
