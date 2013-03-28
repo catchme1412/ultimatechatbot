@@ -13,13 +13,14 @@ public class CommentDAO {
 
 	public static void create(Comment entry) {
 		EntityManager em = EMFService.get().createEntityManager();
-		EntityTransaction transaction = em.getTransaction();
+//		EntityTransaction transaction = em.getTransaction();
 		try {
-			transaction.begin();
+//			transaction.begin();
 			em.persist(entry);
 			em.detach(entry);
-			transaction.commit();
+//			transaction.commit();
 		} finally {
+//			transaction.commit();
 			em.close();
 		}
 	}
